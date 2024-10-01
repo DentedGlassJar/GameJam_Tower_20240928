@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rigid;
 
     public Direction direction;
+    int WalkLength = 500;
     [SerializeField] float velocity = 1.5f;
 
     Vector2 StartOfMap = new Vector2(-8.86f, 9.46f);
@@ -64,8 +65,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.frameCount % 120 == 0)
+        if (Time.frameCount % WalkLength == 0)
+        {
             direction = (Direction)Random.Range(0, 4);
+            WalkLength = 120;
+        }
         Move(direction);
 
         CheckIfOutOfMap();
