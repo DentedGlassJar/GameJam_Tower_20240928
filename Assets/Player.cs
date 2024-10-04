@@ -46,5 +46,32 @@ public class Player : MonoBehaviour
             rigid_body.velocity = Vector2.zero;
             animator.Play("Idle");
         }
+        Vector2 BulletVelocity = Vector2.zero;
+        Quaternion BulletRotation = Quaternion.identity;
+        float BulletSpeed = 5f;
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                BulletVelocity = new Vector2(-BulletSpeed, 0);
+                BulletRotation = Quaternion.AngleAxis(90, Vector3.forward);
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                BulletVelocity = new Vector2(0, BulletSpeed);
+                BulletRotation = Quaternion.identity;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                BulletVelocity = new Vector2(0, -BulletSpeed);
+                BulletRotation = Quaternion.AngleAxis(180, Vector3.forward);
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                BulletVelocity = new Vector2(BulletSpeed, 0);
+                BulletRotation = Quaternion.AngleAxis(-90, Vector3.forward);
+            }
+            Instantiate(Bullet, this.transform.position, BulletRotation).GetComponent<Rigidbody2D>().velocity = BulletVelocity;
+        }
     }
 }

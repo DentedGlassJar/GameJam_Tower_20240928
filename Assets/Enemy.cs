@@ -29,6 +29,10 @@ public class Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
+    
+
+    
+
     private void Move(Direction d)
     {
         switch (d)
