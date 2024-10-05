@@ -6873,6 +6873,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Spider: {fileID: 2902635994212967958, guid: cb98e6d865cc072469c3665f397865b0, type: 3}
+  SpiderBat: {fileID: 8566520688680527983, guid: 005e260c00c15b84fb9fe03afb5c991b, type: 3}
+  Bat: {fileID: 8592670080531293766, guid: b089676a1f6acf84a89c92995a32706e, type: 3}
+  BatRat: {fileID: 5554056941687496138, guid: 1990762d1475e58448475a6d12ddf982, type: 3}
+  Rat: {fileID: 4811017540364737512, guid: bcd2cf86f4c9f9048b0205be77805b80, type: 3}
+  RatSnake: {fileID: 7115504002186385251, guid: 821fab40d9ba6d94190ac86f7a9dfe0c, type: 3}
+  SnakeSkeleton: {fileID: 4693455071825846944, guid: 290553b1f4d89cf49afba9d067207a66, type: 3}
+  Skeleton: {fileID: 7240678466651086314, guid: e28a518559c2f1846828cc4f462c9b53, type: 3}
 --- !u!4 &357239623
 Transform:
   m_ObjectHideFlags: 0

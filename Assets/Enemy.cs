@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     public Direction direction;
     int WalkLength = 500;
     [SerializeField] float velocity = 3f;
+    [SerializeField] float EscapingChance = 0.6f;
 
     Vector2 StartOfMap = new Vector2(-8.86f, 9.46f);
     Vector2 EndOfMap = new Vector2(8.9f, -5f);
@@ -84,11 +85,11 @@ public class Enemy : MonoBehaviour
                 if (Mathf.Abs(transform.position.x - g.transform.position.x) < MinDist && Mathf.Abs(transform.position.y - g.transform.position.y) < MinDistNarrow && g.GetComponent<Rigidbody2D>().velocity.x != 0)
                 {
                     float r = Random.value;
-                    if (r < 0.45f)
+                    if (r < EscapingChance / 2f)
                     {
                         direction = Direction.Up;
                     }
-                    else if(r < 0.9f)
+                    else if(r < EscapingChance)
                     {
                         direction = Direction.Down;
                     }
@@ -96,11 +97,11 @@ public class Enemy : MonoBehaviour
                 else if (Mathf.Abs(transform.position.y - g.transform.position.y) < MinDist && Mathf.Abs(transform.position.x - g.transform.position.x) < MinDistNarrow && g.GetComponent<Rigidbody2D>().velocity.y != 0)
                 {
                     float r = Random.value;
-                    if (r < 0.45f)
+                    if (r < EscapingChance / 2f)
                     {
                         direction = Direction.Right;
                     }
-                    else if(r < 0.9f)
+                    else if(r < EscapingChance)
                     {
                         direction = Direction.Left;
                     }
