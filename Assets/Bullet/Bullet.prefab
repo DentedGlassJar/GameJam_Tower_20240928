@@ -193,3 +193,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26591938b29a1374496a1b598aee3a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Coin: {fileID: 1327055838926013310, guid: ef29944da952a7d4daa5fb8248f7856b, type: 3}

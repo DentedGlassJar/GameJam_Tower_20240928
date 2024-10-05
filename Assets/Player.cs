@@ -15,6 +15,14 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "Coin")
+        {
+            Destroy(collision.collider.gameObject);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
