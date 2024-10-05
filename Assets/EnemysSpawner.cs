@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemysSpawner : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class EnemysSpawner : MonoBehaviour
 
     float SpawningTime = 2f;
     float LevelDuration = 10f;
+    public float GameplayTime = 0;
     void Start()
     {
         EnemyType = Spider;
@@ -35,36 +37,53 @@ public class EnemysSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.fixedTime > 7 * LevelDuration)
+        GameplayTime += Time.deltaTime;
+        if(GameplayTime > 8 * LevelDuration)
+        {
+            GameObject.Find("Player").GetComponent<Player>().GameEnd();
+        }
+        else if(GameplayTime > 7 * LevelDuration)
         {
             EnemyType = Skeleton;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "8th Floor";
         }
-        else if(Time.fixedTime > 6 * LevelDuration)
+        else if(GameplayTime > 6 * LevelDuration)
         {
             EnemyType = SnakeSkeleton;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "7th Floor";
         }
-        else if (Time.fixedTime > 5 * LevelDuration)
+        else if (GameplayTime > 5 * LevelDuration)
         {
             EnemyType = RatSnake;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "6th Floor";
         }
-        else if (Time.fixedTime > 4 * LevelDuration)
+        else if (GameplayTime > 4 * LevelDuration)
         {
             EnemyType = Rat;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "5th Floor";
         }
-        else if (Time.fixedTime > 3 * LevelDuration)
+        else if (GameplayTime > 3 * LevelDuration)
         {
             EnemyType = BatRat;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "4th Floor";
         }
-        else if (Time.fixedTime > 2 * LevelDuration)
+        else if (GameplayTime > 2 * LevelDuration)
         {
             EnemyType = Bat;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "3rd Floor";
         }
-        else if (Time.fixedTime > LevelDuration)
+        else if (GameplayTime > LevelDuration)
         {
             EnemyType = SpiderBat;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "2nd Floor";
+        }
+        else
+        {
+            EnemyType = Spider;
+            GameObject.Find("LevelNumber").GetComponent<Text>().text = "Ground Floor";
         }
 
-        if (Time.fixedTime > SpawningTime)
+        if (GameplayTime > SpawningTime)
         {
             SpawningTime += 0.5f + Random.value * 1f;
             Vector2 EnemyStartPosition;

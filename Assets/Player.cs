@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] GameObject Bullet;
+    [SerializeField] GameObject GameOver;
 
     Rigidbody2D rigid_body;
     Animator animator;
+
+    int Coins = 0;
     void Start()
     {
         rigid_body = GetComponent<Rigidbody2D>();
@@ -20,14 +24,45 @@ public class Player : MonoBehaviour
         if(collision.collider.tag == "Coin")
         {
             Destroy(collision.collider.gameObject);
+            GameObject.Find("Coins").GetComponent<Text>().text = "Coins: " + ++Coins;
         }
+        else if(collision.collider.tag == "Enemy")
+        {
+            GameEnd();
+        }
+    }
+
+    public void GameEnd()
+    {
+        Time.timeScale = 0;
+        GameOver.SetActive(true);
+        GameOver.GetComponent<Text>().text = "Game has ended\nYour score: " + Coins + "\nPress Space to restart";
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 0 && Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach(GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                Destroy (g);
+            }
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Coin"))
+            {
+                Destroy(g);
+            }
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Bullet"))
+            {
+                Destroy(g);
+            }
+            GameOver.SetActive(false);
+            Time.timeScale = 1;
+            Coins = 0;
+            GameObject.Find("Coins").GetComponent<Text>().text = "Coins: 0";
+            GameObject.Find("EnemysSpawner").GetComponent<EnemysSpawner>().GameplayTime = 0;
+        }
         float MovementSpeed = 2f;
-        GameObject StartText = GameObject.Find("StartText");
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
