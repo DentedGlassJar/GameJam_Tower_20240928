@@ -151,6 +151,7 @@ MonoBehaviour:
   direction: 0
   velocity: 5
   EscapingChance: 1
+  MinDistPlayer: 6
 --- !u!61 &6328234071431570446
 BoxCollider2D:
   m_ObjectHideFlags: 0

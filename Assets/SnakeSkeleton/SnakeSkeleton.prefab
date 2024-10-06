@@ -151,6 +151,7 @@ MonoBehaviour:
   direction: 0
   velocity: 4.5
   EscapingChance: 1
+  MinDistPlayer: 5
 --- !u!58 &6145718687208207189
 CircleCollider2D:
   m_ObjectHideFlags: 0

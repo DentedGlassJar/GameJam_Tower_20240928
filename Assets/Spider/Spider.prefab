@@ -123,6 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 0
   velocity: 1.5
+  EscapingChance: 0.6
+  MinDistPlayer: 1
 --- !u!50 &777123723874251958
 Rigidbody2D:
   serializedVersion: 4

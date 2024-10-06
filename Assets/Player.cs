@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid_body;
     Animator animator;
 
+    Direction direction = Direction.Right;
+
     int Coins = 0;
     void Start()
     {
@@ -61,33 +63,39 @@ public class Player : MonoBehaviour
             Coins = 0;
             GameObject.Find("Coins").GetComponent<Text>().text = "Coins: 0";
             GameObject.Find("EnemysSpawner").GetComponent<EnemysSpawner>().GameplayTime = 0;
+            GameObject.Find("EnemysSpawner").GetComponent<EnemysSpawner>().SpawningTime = 0;
         }
         float MovementSpeed = 2f;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
             rigid_body.velocity = new Vector2(0, MovementSpeed);
-            animator.Play("PlayerWalkFwd");
+            animator.Play("Left");
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             rigid_body.velocity = new Vector2(0, -MovementSpeed);
-            animator.Play("PlayerWalkFwd");
+            animator.Play("Right");
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             rigid_body.velocity = new Vector2(-MovementSpeed, 0);
-            animator.Play("PlayerWalkFwd");
+            direction = Direction.Left;
+            animator.Play("Left");
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             rigid_body.velocity = new Vector2(MovementSpeed, 0);
-            animator.Play("PlayerWalkFwd");
+            direction = Direction.Right;
+            animator.Play("Right");
         }
         else
         {
-            rigid_body.velocity = Vector2.zero;
-            animator.Play("Idle");
+            if (direction == Direction.Right)
+                animator.Play("RightIdle");
+            else
+                animator.Play("LeftIdle");
+            rigid_body.velocity = Vector2.zero; 
         }
         Vector2 BulletVelocity = Vector2.zero;
         Quaternion BulletRotation = Quaternion.identity;

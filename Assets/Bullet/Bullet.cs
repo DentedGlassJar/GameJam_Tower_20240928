@@ -9,10 +9,12 @@ public class Bullet : MonoBehaviour
     Vector2 StartOfMap = new Vector2(-8.86f, 9.46f);
     Vector2 EndOfMap = new Vector2(8.9f, -5f);
 
+    Rigidbody2D rigid_body;
+
     [SerializeField] GameObject Coin;
     void Start()
     {
-        
+        rigid_body = GetComponent<Rigidbody2D>();
     }
 
     void CheckIfOutOfMap()

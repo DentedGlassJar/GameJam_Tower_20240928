@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum Direction
@@ -17,11 +18,14 @@ public class Enemy : MonoBehaviour
 
     Animator animator;
     Rigidbody2D rigid;
+    GameObject Player;
 
     public Direction direction;
-    int WalkLength = 500;
     [SerializeField] float velocity = 3f;
     [SerializeField] float EscapingChance = 0.6f;
+    [SerializeField] float MinDistPlayer = 3f;
+
+    int WalkLength;
 
     Vector2 StartOfMap = new Vector2(-8.86f, 9.46f);
     Vector2 EndOfMap = new Vector2(8.9f, -5f);
@@ -29,6 +33,8 @@ public class Enemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+        Player = GameObject.Find("Player");
+        WalkLength = (int)(750f / velocity);
     }
 
     
@@ -71,13 +77,28 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.frameCount % WalkLength == 0)
+        if (Time.frameCount % (WalkLength / velocity) == 0)
         {
             direction = (Direction)Random.Range(0, 4);
-            WalkLength = 120;
+            WalkLength = 180;
         }
-        if(Time.frameCount % 20 == 0)
+        if(Time.frameCount % (30 / velocity) == 0)
         {
+            if(Random.value < 0.5f)
+            {
+                if (transform.position.x - Player.transform.position.x > 0 && transform.position.x - Player.transform.position.x < MinDistPlayer)
+                    direction = Direction.Left;
+                else if (Player.transform.position.x - transform.position.x > 0 && Player.transform.position.x - transform.position.x < MinDistPlayer)
+                    direction = Direction.Right;
+            }
+            else
+            {
+                if (transform.position.y - Player.transform.position.y > 0 && transform.position.y - Player.transform.position.y < MinDistPlayer)
+                    direction = Direction.Down;
+                else if (Player.transform.position.y - transform.position.y > 0 && Player.transform.position.y - transform.position.y < MinDistPlayer)
+                    direction = Direction.Up;
+            }
+            
             const float MinDist = 2f;
             const float MinDistNarrow = 1f;
             foreach (GameObject g in GameObject.FindGameObjectsWithTag("Bullet"))

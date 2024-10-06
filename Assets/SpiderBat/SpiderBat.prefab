@@ -124,6 +124,7 @@ MonoBehaviour:
   direction: 0
   velocity: 2
   EscapingChance: 0.7
+  MinDistPlayer: 2
 --- !u!50 &6947547902615938474
 Rigidbody2D:
   serializedVersion: 4

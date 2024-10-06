@@ -21,7 +21,7 @@ public class EnemysSpawner : MonoBehaviour
     Vector2 StartOfMap = new Vector2(-8.86f, 9.46f);
     Vector2 EndOfMap = new Vector2(8.9f, -5f);
 
-    float SpawningTime = 2f;
+    public float SpawningTime = 2f;
     float LevelDuration = 10f;
     public float GameplayTime = 0;
     void Start()
