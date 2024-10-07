@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
             GameObject.Find("Coins").GetComponent<Text>().text = "Coins: 0";
             GameObject.Find("EnemysSpawner").GetComponent<EnemysSpawner>().GameplayTime = 0;
             GameObject.Find("EnemysSpawner").GetComponent<EnemysSpawner>().SpawningTime = 0;
+            GameObject.Find("EnemysSpawner").GetComponent<EnemysSpawner>().BossesSpawned = false;
         }
         float MovementSpeed = 2f;
 

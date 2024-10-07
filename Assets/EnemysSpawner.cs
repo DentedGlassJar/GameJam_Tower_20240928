@@ -16,9 +16,31 @@ public class EnemysSpawner : MonoBehaviour
     [SerializeField] GameObject SnakeSkeleton;
     [SerializeField] GameObject Skeleton;
 
+    [SerializeField] GameObject SpiderBoss;
+    [SerializeField] GameObject BatBoss;
+    [SerializeField] GameObject RatBoss;
+    [SerializeField] GameObject SnakeBoss;
+
+    bool SpiderBossSpawned = false;
+    bool BatBossSpawned = false;
+    bool RatBossSpawned = false;
+    bool SnakeBossSpawned = false;
+
+    public bool BossesSpawned
+    {
+        get { return SpiderBossSpawned; }
+        set
+        {
+            SpiderBossSpawned = value;
+            BatBossSpawned = value;
+            RatBossSpawned = value;
+            SnakeBossSpawned = value;
+        }
+    }
+
     GameObject EnemyType;
 
-    Vector2 StartOfMap = new Vector2(-8.86f, 9.46f);
+    Vector2 StartOfMap = new Vector2(-8.86f, 4.8f);
     Vector2 EndOfMap = new Vector2(8.9f, -5f);
 
     public float SpawningTime = 2f;
@@ -34,7 +56,31 @@ public class EnemysSpawner : MonoBehaviour
         return Random.value * (max - min) + min;
     }
 
-    // Update is called once per frame
+    void SpawnEnemy(GameObject _EnemyType)
+    {
+        Vector2 EnemyStartPosition;
+        Direction EnemyStartDirection = (Direction)Random.Range(0, 3);
+        switch (EnemyStartDirection)
+        {
+            case Direction.Up:
+                EnemyStartPosition = new Vector2(RandomValueBetween(0.2f, 0.8f) * (EndOfMap.x - StartOfMap.x) + StartOfMap.x, EndOfMap.y);
+                break;
+            case Direction.Down:
+                EnemyStartPosition = new Vector2(RandomValueBetween(0.2f, 0.8f) * (EndOfMap.x - StartOfMap.x) + StartOfMap.x, StartOfMap.y);
+                break;
+            case Direction.Right:
+                EnemyStartPosition = new Vector2(StartOfMap.x, RandomValueBetween(0.2f, 0.8f) * (EndOfMap.y - StartOfMap.y) + StartOfMap.y);
+                break;
+            case Direction.Left:
+                EnemyStartPosition = new Vector2(EndOfMap.x, RandomValueBetween(0.2f, 0.8f) * (EndOfMap.y - StartOfMap.y) + StartOfMap.y);
+                break;
+            default:
+                EnemyStartPosition = StartOfMap;
+                break;
+        }
+        GameObject Enemy = Instantiate(_EnemyType, EnemyStartPosition, Quaternion.identity);
+        Enemy.GetComponent<Enemy>().direction = EnemyStartDirection;
+    }
     void Update()
     {
         GameplayTime += Time.deltaTime;
@@ -45,11 +91,21 @@ public class EnemysSpawner : MonoBehaviour
         else if(GameplayTime > 7 * LevelDuration)
         {
             EnemyType = Skeleton;
+            if (!SnakeBossSpawned)
+            {
+                SpawnEnemy(SnakeBoss);
+                SnakeBossSpawned = true;
+            }
             GameObject.Find("LevelNumber").GetComponent<Text>().text = "8th Floor";
         }
         else if(GameplayTime > 6 * LevelDuration)
         {
             EnemyType = SnakeSkeleton;
+            if (!RatBossSpawned)
+            {
+                SpawnEnemy(RatBoss);
+                RatBossSpawned = true;
+            }
             GameObject.Find("LevelNumber").GetComponent<Text>().text = "7th Floor";
         }
         else if (GameplayTime > 5 * LevelDuration)
@@ -60,6 +116,12 @@ public class EnemysSpawner : MonoBehaviour
         else if (GameplayTime > 4 * LevelDuration)
         {
             EnemyType = Rat;
+            if(!BatBossSpawned)
+            {
+                SpawnEnemy(BatBoss);
+                BatBossSpawned = true;
+            }
+            
             GameObject.Find("LevelNumber").GetComponent<Text>().text = "5th Floor";
         }
         else if (GameplayTime > 3 * LevelDuration)
@@ -70,6 +132,11 @@ public class EnemysSpawner : MonoBehaviour
         else if (GameplayTime > 2 * LevelDuration)
         {
             EnemyType = Bat;
+            if (!SpiderBossSpawned)
+            {
+                SpawnEnemy(SpiderBoss);
+                SpiderBossSpawned = true;
+            }
             GameObject.Find("LevelNumber").GetComponent<Text>().text = "3rd Floor";
         }
         else if (GameplayTime > LevelDuration)
@@ -86,28 +153,7 @@ public class EnemysSpawner : MonoBehaviour
         if (GameplayTime > SpawningTime)
         {
             SpawningTime += 0.5f + Random.value * 1f;
-            Vector2 EnemyStartPosition;
-            Direction EnemyStartDirection = (Direction)Random.Range(0, 3);
-            switch (EnemyStartDirection)
-            {
-                case Direction.Up:
-                    EnemyStartPosition = new Vector2(RandomValueBetween(0.2f, 0.8f) * (EndOfMap.x - StartOfMap.x) + StartOfMap.x, EndOfMap.y);
-                    break;
-                case Direction.Down:
-                    EnemyStartPosition = new Vector2(RandomValueBetween(0.2f, 0.8f) * (EndOfMap.x - StartOfMap.x) + StartOfMap.x, StartOfMap.y);
-                    break;
-                case Direction.Right:
-                    EnemyStartPosition = new Vector2(StartOfMap.x, RandomValueBetween(0.2f, 0.8f) * (EndOfMap.y - StartOfMap.y) + StartOfMap.y);
-                    break;
-                case Direction.Left:
-                    EnemyStartPosition = new Vector2(EndOfMap.x, RandomValueBetween(0.2f, 0.8f) * (EndOfMap.y - StartOfMap.y) + StartOfMap.y);
-                    break;
-                default:
-                    EnemyStartPosition = StartOfMap;
-                    break;
-            }
-            GameObject Enemy = Instantiate(EnemyType, EnemyStartPosition, Quaternion.identity);
-            Enemy.GetComponent<Enemy>().direction = EnemyStartDirection;
+            SpawnEnemy(EnemyType);
         }
     }
 }
