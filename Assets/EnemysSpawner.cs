@@ -46,6 +46,7 @@ public class EnemysSpawner : MonoBehaviour
     public float SpawningTime = 2f;
     float LevelDuration = 10f;
     public float GameplayTime = 0;
+    int a = 0;
     void Start()
     {
         EnemyType = Spider;
@@ -80,6 +81,17 @@ public class EnemysSpawner : MonoBehaviour
         }
         GameObject Enemy = Instantiate(_EnemyType, EnemyStartPosition, Quaternion.identity);
         Enemy.GetComponent<Enemy>().direction = EnemyStartDirection;
+        Enemy.name = _EnemyType.name;
+    }
+
+    void SpawnMinion(string ParentName, GameObject _EnemyType)
+    {
+        GameObject Parent = GameObject.Find(ParentName);
+        if(Parent == null)
+            return;
+
+        GameObject Enemy = Instantiate(_EnemyType, Parent.transform.position, Quaternion.identity);
+        Enemy.GetComponent<Enemy>().direction = (Direction)Random.Range(0, 4);
     }
     void Update()
     {
@@ -154,6 +166,16 @@ public class EnemysSpawner : MonoBehaviour
         {
             SpawningTime += 0.5f + Random.value * 1f;
             SpawnEnemy(EnemyType);
+            a++;
+
+            if(a == 2)
+            {
+                a = 0;
+                SpawnMinion("SpiderBoss", Spider);
+                SpawnMinion("BatBoss", Bat);
+                SpawnMinion("RatBoss", Rat);
+                SpawnMinion("SnakeBoss", SnakeSkeleton);
+            }
         }
     }
 }
