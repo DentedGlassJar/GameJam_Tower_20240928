@@ -171,10 +171,14 @@ public class EnemysSpawner : MonoBehaviour
             if(a == 2)
             {
                 a = 0;
-                SpawnMinion("SpiderBoss", Spider);
-                SpawnMinion("BatBoss", Bat);
-                SpawnMinion("RatBoss", Rat);
-                SpawnMinion("SnakeBoss", SnakeSkeleton);
+                for(int i = 0; i < 2; i++)
+                {
+                    SpawnMinion("SpiderBoss", Spider);
+                    SpawnMinion("BatBoss", Bat);
+                    SpawnMinion("RatBoss", Rat);
+                    SpawnMinion("SnakeBoss", SnakeSkeleton);
+                }
+                
             }
         }
     }
