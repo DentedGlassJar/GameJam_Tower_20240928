@@ -6965,6 +6965,7 @@ MonoBehaviour:
   BatBoss: {fileID: 4902932817993549269, guid: 9c040773266dfb842817a26cbfa211d7, type: 3}
   RatBoss: {fileID: 1042341627670370956, guid: 2fc00dc51f1b0e743b84702f08f5ee23, type: 3}
   SnakeBoss: {fileID: 6060766463358620479, guid: 89499f27eb89f1b4080454a7df2740ce, type: 3}
+  SkeletonBoss: {fileID: 4393284421246397651, guid: 57de8dd02f0158742bd5cf6c47e8402b, type: 3}
   SpawningTime: 2
   GameplayTime: 0
 --- !u!4 &357239623

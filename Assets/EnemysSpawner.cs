@@ -20,11 +20,13 @@ public class EnemysSpawner : MonoBehaviour
     [SerializeField] GameObject BatBoss;
     [SerializeField] GameObject RatBoss;
     [SerializeField] GameObject SnakeBoss;
+    [SerializeField] GameObject SkeletonBoss;
 
     bool SpiderBossSpawned = false;
     bool BatBossSpawned = false;
     bool RatBossSpawned = false;
     bool SnakeBossSpawned = false;
+    bool SkeletonBossSpawned = false;
 
     public bool BossesSpawned
     {
@@ -35,6 +37,7 @@ public class EnemysSpawner : MonoBehaviour
             BatBossSpawned = value;
             RatBossSpawned = value;
             SnakeBossSpawned = value;
+            SkeletonBossSpawned = value;
         }
     }
 
@@ -103,26 +106,32 @@ public class EnemysSpawner : MonoBehaviour
         else if(GameplayTime > 7 * LevelDuration)
         {
             EnemyType = Skeleton;
-            if (!SnakeBossSpawned)
+            if (!SkeletonBossSpawned)
             {
-                SpawnEnemy(SnakeBoss);
-                SnakeBossSpawned = true;
+                SpawnEnemy(SkeletonBoss);
+                SkeletonBossSpawned = true;
             }
             GameObject.Find("LevelNumber").GetComponent<Text>().text = "8th Floor";
         }
         else if(GameplayTime > 6 * LevelDuration)
         {
-            EnemyType = SnakeSkeleton;
-            if (!RatBossSpawned)
+            EnemyType = Skeleton;
+            if (!SnakeBossSpawned)
             {
-                SpawnEnemy(RatBoss);
-                RatBossSpawned = true;
+                SpawnEnemy(SnakeBoss);
+                SnakeBossSpawned = true;
             }
             GameObject.Find("LevelNumber").GetComponent<Text>().text = "7th Floor";
         }
         else if (GameplayTime > 5 * LevelDuration)
         {
             EnemyType = RatSnake;
+            EnemyType = SnakeSkeleton;
+            if (!RatBossSpawned)
+            {
+                SpawnEnemy(RatBoss);
+                RatBossSpawned = true;
+            }
             GameObject.Find("LevelNumber").GetComponent<Text>().text = "6th Floor";
         }
         else if (GameplayTime > 4 * LevelDuration)
@@ -177,6 +186,7 @@ public class EnemysSpawner : MonoBehaviour
                     SpawnMinion("BatBoss", Bat);
                     SpawnMinion("RatBoss", Rat);
                     SpawnMinion("SnakeBoss", SnakeSkeleton);
+                    SpawnMinion("SkeletonBoss", Skeleton);
                 }
                 
             }
